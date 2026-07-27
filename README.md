@@ -1,48 +1,80 @@
-# meu-projeto-vue
+# SG Agenda
 
-This template should help get you started developing with Vue 3 in Vite.
+Projeto de estudos de front-end baseado no protótipo **SG Agenda Yuri**.
 
-## Recommended IDE Setup
+O objetivo é aprender JavaScript, Vue.js, Vue Router e PrimeVue construindo um
+sistema real de gestão para agenda, clientes, atendentes, catálogo e comissões.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Tecnologias
 
-## Recommended Browser Setup
+- Vue 3 com Composition API
+- TypeScript
+- Vue Router
+- PrimeVue e PrimeIcons
+- Tailwind CSS
+- Vite
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Funcionalidades atuais
 
-## Type Support for `.vue` Imports in TS
+- Dashboard responsivo inspirado no Figma
+- Indicadores que reagem à seleção de período
+- Agenda com filtro por profissional
+- Pesquisa e tabela de clientes
+- Navegação entre as áreas do sistema
+- Páginas preparadas para Atendentes, Catálogo e Comissões
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Continuar em outro computador
 
-## Customize configuration
+### 1. Instalar as ferramentas
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Instale:
 
-## Project Setup
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/) 24 LTS ou uma versão compatível com o projeto
+- [Visual Studio Code](https://code.visualstudio.com/)
+- Extensão [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-```sh
-npm install
+### 2. Clonar o projeto
+
+```bash
+git clone https://github.com/yuuaguiar/estudosVUEjs.git
+cd estudosVUEjs
 ```
 
-### Compile and Hot-Reload for Development
+Se o trabalho estiver em uma branch de estudo, troque para ela:
 
-```sh
+```bash
+git fetch origin
+git switch agent/sg-agenda-learning
+```
+
+### 3. Instalar e iniciar
+
+```bash
+npm install
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Abra o endereço mostrado pelo Vite, normalmente:
 
-```sh
-npm run build
+```text
+http://localhost:5173
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Comandos
 
-```sh
-npm run lint
+```bash
+npm run dev       # servidor de desenvolvimento
+npm run build     # valida TypeScript e gera a versão de produção
+npm run format    # formata os arquivos de src
+npm run lint      # executa os linters
 ```
+
+## Roteiro de estudos
+
+O plano completo, os exercícios e a forma recomendada de estudar estão em
+[APRENDIZADO.md](./APRENDIZADO.md).
+
+## Referência visual
+
+[SG Agenda Yuri no Figma](https://www.figma.com/design/YGFz178tDKZx8EgeD8XypQ/SG-Agenda-Yuri?node-id=0-1)
