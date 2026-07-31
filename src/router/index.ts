@@ -24,6 +24,11 @@ const router = createRouter({
           component: () => import('@/views/ClientsView.vue'),
         },
         {
+          path: 'servicos',
+          name: 'servicos',
+          component: () => import('@/modules/services/IndexServices.vue'),
+        },
+        {
           path: 'atendentes',
           name: 'atendentes',
           component: () => import('@/views/SectionView.vue'),
