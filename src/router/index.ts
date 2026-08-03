@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
+import TelaEmBranco from '@/views/TelaEmBranco.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,46 +11,43 @@ const router = createRouter({
       children: [
         {
           path: '',
+          redirect: { name: 'catalogo' },
+        },
+        {
+          path: 'dashboard',
           name: 'dashboard',
-          component: () => import('@/views/DashboardView.vue'),
+          component: TelaEmBranco,
         },
         {
           path: 'agenda',
           name: 'agenda',
-          component: () => import('@/views/AgendaView.vue'),
+          component: TelaEmBranco,
         },
         {
           path: 'clientes',
           name: 'clientes',
-          component: () => import('@/views/ClientsView.vue'),
-        },
-        {
-          path: 'servicos',
-          name: 'servicos',
-          component: () => import('@/modules/services/IndexServices.vue'),
+          component: TelaEmBranco,
         },
         {
           path: 'atendentes',
           name: 'atendentes',
-          component: () => import('@/views/SectionView.vue'),
-          props: {
-            title: 'Atendentes',
-            description: 'Gerencie a equipe e os horários de trabalho.',
-          },
+          component: TelaEmBranco,
         },
         {
           path: 'catalogo',
           name: 'catalogo',
-          component: () => import('@/views/SectionView.vue'),
-          props: { title: 'Catálogo', description: 'Organize serviços, produtos e categorias.' },
+          component: () => import('@/modules/services/IndexServices.vue'),
         },
         {
           path: 'comissoes',
           name: 'comissoes',
-          component: () => import('@/views/SectionView.vue'),
-          props: { title: 'Comissões', description: 'Acompanhe valores e regras de comissão.' },
+          component: TelaEmBranco,
         },
       ],
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: { name: 'catalogo' },
     },
   ],
 })

@@ -1,55 +1,70 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import IconField from 'primevue/iconfield'
+import InputIcon from 'primevue/inputicon'
 
-interface Service {
-  id: number;
-  name: string;
-  duration: number;
-  price: number;
-  active: boolean
+
+import Tabs from 'primevue/tabs'
+import TabList from 'primevue/tablist'
+import Tab from 'primevue/tab'
+import TabPanels from 'primevue/tabpanels'
+import TabPanel from 'primevue/tabpanel'
+
+
+interface Servico {
+  id: number
+  nome: string
+  duracao: number
+  preco: number
+  ativo: boolean
 }
 
-const pageTitle: string = 'Serviços'
+type AbaCatalogo = 'servicos' | 'produtos' | 'categorias'
 
-const services = ref<Service[]>([
+const tituloPagina = 'Catálogo'
+
+const abaSelecionada = ref<AbaCatalogo>('servicos')
+
+const termoBusca = ref('')
+
+const servicos = ref<Servico[]>([
   {
     id: 1,
-    name: 'Corte de cabelo',
-    duration: 45,
-    price: 50,
-    active: true,
+    nome: 'Corte de cabelo',
+    duracao: 45,
+    preco: 50,
+    ativo: true,
   },
   {
     id: 2,
-    name: 'Barba',
-    duration: 30,
-    price: 35,
-    active: true,
+    nome: 'Barba',
+    duracao: 30,
+    preco: 35,
+    ativo: true,
   },
   {
     id: 3,
-    name: 'Corte e barba',
-    duration: 60,
-    price: 75,
-    active: false,
+    nome: 'Corte e barba',
+    duracao: 60,
+    preco: 75,
+    ativo: false,
   },
 ])
 
-function formatPrice(price: number): string{
-  return price.toLocaleString('pt-BR', {
+function formatarPreco(preco: number): string {
+  return preco.toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   })
 }
 
-function toggleServiceStatus(serviceId: number): void {
-  const service = services.value.find(
-    (currentService) => currentService.id === serviceId,
-  )
+function alternarStatusServico(idServico: number): void {
+  const servico = servicos.value.find((servicoAtual) => servicoAtual.id === idServico)
 
-  if (service) {
-    service.active = !service.active
+  if (servico) {
+    servico.ativo = !servico.ativo
   }
 }
 </script>
@@ -58,66 +73,110 @@ function toggleServiceStatus(serviceId: number): void {
   <section>
     <div class="page-heading">
       <div>
-        <h1>{{ pageTitle }}</h1>
-        <p>Cadastre e gerencia os serviços disponíveis para agendamento.</p>
-      </div>
-
-    <Button label="Cadastrar serviços" icon="pi pi-plus" />
-    </div>
-
-    <div class="services-card card">
-      <h2>Lista de serviçoes</h2>
-
-      <div class="services-list">
-        <article
-          v-for="service in services"
-          :key="service.id"
-          class="service-item">
-
-          <div class="service-information">
-            <strong>{{ service.name }}</strong>
-            <span>{{ service.duration }} minutos</span>
-          </div>
-
-          <div class="service-details">
-            <strong>{{ formatPrice(service.price) }}</strong>
-
-            <span
-              class="service-status"
-              :class="{ 'service-status--inactive': !service.active}">
-
-              {{ service.active ? 'Ativo' : 'Inativo' }}
-            </span>
-            <Button
-              :label="service.active ? 'Desativar' : 'Ativar'"
-              :severity="service.active ? 'danger' : 'success'"
-              size="small"
-              outlined
-              @click="toggleServiceStatus(service.id)"
-            />
-          </div>
-        </article>
+        <h1>{{ tituloPagina }}</h1>
+        <p>Gerencie serviços, produtos e categorias usadas no seu negócio.</p>
       </div>
     </div>
+
+    <Tabs v-model:value="abaSelecionada" class="tw-mb-7">
+      <TabList class="tw-max-w-[400px]">
+        <Tab value="servicos">
+          <span class="tw-flex tw-items-center tw-gap-2">
+            <i class="pi pi-scissors"></i>
+            Serviços
+          </span>
+        </Tab>
+
+        <Tab value="produtos">
+          <span class="tw-flex tw-items-center tw-gap-2">
+            <i class="pi pi-box"></i>
+            Produtos
+          </span>
+        </Tab>
+
+        <Tab value="categorias">
+          <span class="tw-flex tw-items-center tw-gap-2">
+            <i class="pi pi-tag"></i>
+            Categorias
+          </span>
+        </Tab>
+      </TabList>
+
+      <TabPanels class="tw-mt-7 tw-p-0">
+        <TabPanel value="servicos">
+          <div class="cartao-servicos card">
+            <div class="tw-mb-5 tw-flex tw-flex-col tw-gap-3 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
+              <iconfield class="tw-w-full sm:tw-max-w-[390px]">
+                <InputIcon class="pi pi=search" />
+
+                <InputText
+                  v-model="termoBusca"
+                  placeholder="Buscar serviço..."
+                  class="tw-w-full"
+                />
+              </iconfield>
+
+              <Button
+                label="Cadastrar serviço"
+                icon="pi pi-plus"
+              />
+          </div>
+
+            <h2>Lista de serviços</h2>
+
+            <div class="lista-servicos">
+              <article v-for="servico in servicos" :key="servico.id" class="item-servico">
+                <div class="informacoes-servico">
+                  <strong>{{ servico.nome }}</strong>
+                  <span>{{ servico.duracao }} minutos</span>
+                </div>
+
+                <div class="detalhes-servico">
+                  <strong>{{ formatarPreco(servico.preco) }}</strong>
+
+                  <span class="status-servico" :class="{ 'status-servico--inativo': !servico.ativo }">
+                    {{ servico.ativo ? 'Ativo' : 'Inativo' }}
+                  </span>
+                  <Button :label="servico.ativo ? 'Desativar' : 'Ativar'"
+                    :severity="servico.ativo ? 'danger' : 'success'" size="small" outlined
+                    @click="alternarStatusServico(servico.id)" />
+                </div>
+              </article>
+            </div>
+          </div>
+
+        </TabPanel>
+
+        <TabPanel value="produtos">
+          <div class="card tw-min-h-80" aria-label="Área de produtos ainda não construída">
+          </div>
+        </TabPanel>
+
+        <TabPanel value="categorias">
+          <div class="card tw-min-h-80" aria-label="Área de categorias ainda não construída">
+          </div>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   </section>
 </template>
 
 <style scoped>
-.services-card {
+.cartao-servicos {
   padding: 18px;
 }
 
-.services-card h2 {
+.cartao-servicos h2 {
   margin: 0 0 16px;
   font-size: 14px;
 }
 
-.services-list {
+.lista-servicos {
   display: grid;
   gap: 10px;
 }
 
-.service-item {
+.item-servico {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -127,46 +186,44 @@ function toggleServiceStatus(serviceId: number): void {
   border-radius: 12px;
 }
 
-.service-information > div {
+.informacoes-servico {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.service-item span {
+.item-servico span {
   color: var(--muted);
   font-size: 11px;
 }
 
-.service-details {
+.detalhes-servico {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.service-status {
+.status-servico {
   min-width: 42px;
   color: var(--success) !important;
   font-weight: 600;
 }
 
-.service-status--inactive {
+.status-servico--inativo {
   color: var(--danger) !important;
 }
 
 @media (max-width: 640px) {
-  .service-item {
+  .item-servico {
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
   }
 
-  .service-details {
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 8px;
+  .detalhes-servico {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }
-
-
 </style>

@@ -3,7 +3,7 @@ defineProps<{ open: boolean }>()
 defineEmits<{ close: [] }>()
 
 const items = [
-  { label: 'Dashboard', icon: 'pi pi-th-large', to: '/' },
+  { label: 'Dashboard', icon: 'pi pi-th-large', to: '/dashboard' },
   { label: 'Agenda', icon: 'pi pi-calendar', to: '/agenda' },
   { label: 'Clientes', icon: 'pi pi-users', to: '/clientes' },
   { label: 'Atendentes', icon: 'pi pi-user-plus', to: '/atendentes' },
