@@ -32,13 +32,5 @@ const items = [
         <span>{{ item.label }}</span>
       </RouterLink>
     </nav>
-
-    <div class="sidebar-help">
-      <i class="pi pi-question-circle" />
-      <div>
-        <strong>Precisa de ajuda?</strong>
-        <small>Consulte o guia do projeto</small>
-      </div>
-    </div>
   </aside>
 </template>
