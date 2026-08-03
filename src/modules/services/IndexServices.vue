@@ -4,6 +4,7 @@ import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
+import Message from 'primevue/message'
 
 
 import Tabs from 'primevue/tabs'
@@ -141,6 +142,17 @@ function alternarStatusServico(idServico: number): void {
               />
           </div>
 
+          <Message
+            v-if="servicosFiltrados.length ===0"
+            severity="info"
+            :closable="false"
+            class="tw-w-full"
+          >
+            Nenhum serviço encontrado para "{{  termoBusca }}"
+          </Message>
+
+          <div v-else class="lista-servicos">
+
             <h2>Lista de serviços</h2>
 
             <div class="lista-servicos">
@@ -162,6 +174,7 @@ function alternarStatusServico(idServico: number): void {
                 </div>
               </article>
             </div>
+           </div>
           </div>
 
         </TabPanel>
