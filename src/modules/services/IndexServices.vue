@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import IconField from 'primevue/iconfield'
@@ -52,6 +52,22 @@ const servicos = ref<Servico[]>([
     ativo: false,
   },
 ])
+
+const servicosFiltrados = computed(() => {
+  const termoNormalizado = termoBusca.value
+    .trim()
+    .toLocaleLowerCase('pt-BR')
+
+  if (!termoNormalizado) {
+    return servicos.value
+  }
+
+  return servicos.value.filter((servico) =>
+    servico.nome
+      .toLocaleLowerCase('pt-BR')
+      .includes(termoNormalizado),
+  )
+})
 
 function formatarPreco(preco: number): string {
   return preco.toLocaleString('pt-BR', {
@@ -106,15 +122,15 @@ function alternarStatusServico(idServico: number): void {
         <TabPanel value="servicos">
           <div class="cartao-servicos card">
             <div class="tw-mb-5 tw-flex tw-flex-col tw-gap-3 sm:tw-flex-row sm:tw-items-center sm:tw-justify-between">
-              <iconfield class="tw-w-full sm:tw-max-w-[390px]">
-                <InputIcon class="pi pi=search" />
+              <IconField class="tw-w-full sm:tw-max-w-[390px]">
+                <InputIcon class="pi pi-search" />
 
                 <InputText
                   v-model="termoBusca"
                   placeholder="Buscar serviço..."
                   class="tw-w-full"
                 />
-              </iconfield>
+              </IconField>
 
               <Button
                 label="Cadastrar serviço"
@@ -125,7 +141,7 @@ function alternarStatusServico(idServico: number): void {
             <h2>Lista de serviços</h2>
 
             <div class="lista-servicos">
-              <article v-for="servico in servicos" :key="servico.id" class="item-servico">
+              <article v-for="servico in servicosFiltrados" :key="servico.id" class="item-servico">
                 <div class="informacoes-servico">
                   <strong>{{ servico.nome }}</strong>
                   <span>{{ servico.duracao }} minutos</span>

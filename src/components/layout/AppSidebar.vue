@@ -2,6 +2,8 @@
 defineProps<{ open: boolean }>()
 defineEmits<{ close: [] }>()
 
+import logoSgAgenda from '@/assets/sg-agenda-logo.svg'
+
 const items = [
   { label: 'Dashboard', icon: 'pi pi-th-large', to: '/dashboard' },
   { label: 'Agenda', icon: 'pi pi-calendar', to: '/agenda' },
@@ -15,8 +17,7 @@ const items = [
 <template>
   <aside class="sidebar" :class="{ 'sidebar--open': open }">
     <div class="brand">
-      <strong><span>SG</span>agenda</strong>
-      <small>Deus seja louvado!</small>
+      <img :src="logoSgAgenda" class="tw-h-auto tw-w-[190px]" alt="SG Agenda">
     </div>
 
     <nav class="sidebar-nav" aria-label="Navegação principal">
