@@ -95,22 +95,25 @@ function alternarStatusServico(idServico: number): void {
     </div>
 
     <Tabs v-model:value="abaSelecionada" class="tw-mb-7">
-      <TabList class="tw-max-w-[400px]">
-        <Tab value="servicos">
+      <TabList class="tw-w-[460px] tw-max-w-full">
+        <Tab value="servicos"
+          class="tw-flex-1 tw-justify-center">
           <span class="tw-flex tw-items-center tw-gap-2">
-            <i class="pi pi-scissors"></i>
+            <i class="pi pi-list-check"></i>
             Serviços
           </span>
         </Tab>
 
-        <Tab value="produtos">
+        <Tab value="produtos"
+          class="tw-flex-1 tw-justify-center">
           <span class="tw-flex tw-items-center tw-gap-2">
             <i class="pi pi-box"></i>
             Produtos
           </span>
         </Tab>
 
-        <Tab value="categorias">
+        <Tab value="categorias"
+          class="tw-flex-1 tw-justify-center">
           <span class="tw-flex tw-items-center tw-gap-2">
             <i class="pi pi-tag"></i>
             Categorias
