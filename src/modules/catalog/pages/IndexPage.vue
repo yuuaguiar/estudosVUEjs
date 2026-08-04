@@ -9,10 +9,10 @@ type AbaCatalogo = 'servicos' | 'produtos' | 'categorias'
 
 const abaSelecionada = ref<AbaCatalogo>('servicos')
 
-const opcoesCatalogo: Array<{ label: string; value: AbaCatalogo }> = [
-  { label: 'Serviços', value: 'servicos' },
-  { label: 'Produtos', value: 'produtos' },
-  { label: 'Categorias', value: 'categorias' },
+const opcoesCatalogo: Array<{ label: string; value: AbaCatalogo; icon: string }> = [
+  { label: 'Serviços', value: 'servicos', icon: 'pi pi-list-check' },
+  { label: 'Produtos', value: 'produtos', icon: 'pi pi-box' },
+  { label: 'Categorias', value: 'categorias', icon: 'pi pi-tag' },
 ]
 </script>
 
@@ -31,7 +31,14 @@ const opcoesCatalogo: Array<{ label: string; value: AbaCatalogo }> = [
       option-label="label"
       option-value="value"
       :allow-empty="false"
-    />
+    >
+      <template #option="{ option }">
+        <span class="tw-flex tw-items-center tw-gap-2">
+          <i :class="option.icon" />
+          <span>{{ option.label }}</span>
+        </span>
+      </template>
+    </SelectButton>
 
     <div class="tw-mt-7">
       <ServicesIndexPage v-if="abaSelecionada === 'servicos'" />
