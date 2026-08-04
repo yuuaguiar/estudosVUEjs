@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layouts/AppLayout.vue'
+import { catalogRoutes } from '@/modules/catalog/routes/catalog.routes'
 import TelaEmBranco from '@/views/TelaEmBranco.vue'
 
 const router = createRouter({
@@ -33,11 +34,7 @@ const router = createRouter({
           name: 'atendentes',
           component: TelaEmBranco,
         },
-        {
-          path: 'catalogo',
-          name: 'catalogo',
-          component: () => import('@/modules/services/IndexServices.vue'),
-        },
+        ...catalogRoutes,
         {
           path: 'comissoes',
           name: 'comissoes',
