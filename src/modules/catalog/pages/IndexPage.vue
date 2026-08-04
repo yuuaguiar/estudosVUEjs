@@ -9,10 +9,28 @@ type AbaCatalogo = 'servicos' | 'produtos' | 'categorias'
 
 const abaSelecionada = ref<AbaCatalogo>('servicos')
 
-const opcoesCatalogo: Array<{ label: string; value: AbaCatalogo; icon: string }> = [
-  { label: 'Serviços', value: 'servicos', icon: 'pi pi-list-check' },
-  { label: 'Produtos', value: 'produtos', icon: 'pi pi-box' },
-  { label: 'Categorias', value: 'categorias', icon: 'pi pi-tag' },
+interface OpcaoCatalogo {
+  label: string
+  value: AbaCatalogo
+  icon: string
+}
+
+const opcoesCatalogo: OpcaoCatalogo[] = [
+  {
+    label: 'Serviços',
+    value: 'servicos',
+    icon: 'pi pi-list-check',
+  },
+  {
+    label: 'Produtos',
+    value: 'produtos',
+    icon: 'pi pi-box',
+  },
+  {
+    label: 'Categorias',
+    value: 'categorias',
+    icon: 'pi pi-tag',
+  },
 ]
 </script>
 
