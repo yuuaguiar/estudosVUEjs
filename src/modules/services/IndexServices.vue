@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 import Message from 'primevue/message'
-
-
+import Dialog from 'primevue/dialog'
+import InputNumber from 'primevue/inputnumber'
+import ToggleSwitch from 'primevue/toggleswitch'
 import Tabs from 'primevue/tabs'
 import TabList from 'primevue/tablist'
 import Tab from 'primevue/tab'
@@ -22,13 +23,26 @@ interface Servico {
   ativo: boolean
 }
 
+interface FormularioServico {
+  nome: string
+  duracao: number | null
+  preco: number | null
+  ativo: boolean
+}
+
 type AbaCatalogo = 'servicos' | 'produtos' | 'categorias'
 
 const tituloPagina = 'Catálogo'
-
 const abaSelecionada = ref<AbaCatalogo>('servicos')
-
 const termoBusca = ref('')
+const dialogCadastroAberto = ref(false)
+
+const formularioServico = reactive<FormularioServico>({
+  nome: '',
+  duracao: null,
+  preco: null,
+  ativo: true,
+})
 
 const servicos = ref<Servico[]>([
   {
@@ -139,6 +153,7 @@ function alternarStatusServico(idServico: number): void {
               <Button
                 label="Cadastrar serviço"
                 icon="pi pi-plus"
+                @click ="dialogCadastroAberto = true"
               />
           </div>
 
@@ -176,6 +191,45 @@ function alternarStatusServico(idServico: number): void {
             </div>
            </div>
           </div>
+
+          <Dialog v-model:visible="dialogCadastroAberto" modal header="Cadastrar serviço"
+            :style="{ width: 'min(90vw, 520px)' }">
+            <div class="tw-flex tw-flex-col tw-gap-5">
+              <div class="tw-flex tw-flex-col tw-gap-2">
+                <label for="nome-servico">Nome do serviço</label>
+
+                <InputText id="nome-servico" v-model="formularioServico.nome" placeholder="Ex.: Corte masculino" />
+              </div>
+
+              <div class="tw-grid tw-grid-cols-1 tw-gap-5 sm:tw-grid-cols-2">
+                <div class="tw-flex tw-flex-col tw-gap-2">
+                  <label for="duracao-servico">Duração</label>
+
+                  <InputNumber id="duracao-servico" v-model="formularioServico.duracao" suffix=" min" :min="1"
+                    placeholder="Ex.: 45" />
+                </div>
+
+                <div class="tw-flex tw-flex-col tw-gap-2">
+                  <label for="preco-servico">Preço</label>
+
+                  <InputNumber id="preco-servico" v-model="formularioServico.preco" mode="currency" currency="BRL"
+                    locale="pt-BR" :min="0" placeholder="R$ 0,00" />
+                </div>
+              </div>
+
+
+
+  <div class="tw-flex tw-items-center tw-gap-3">
+    <ToggleSwitch
+      input-id="servico-ativo"
+      v-model="formularioServico.ativo"
+    />
+
+    <label for="servico-ativo">Serviço ativo</label>
+  </div>
+</div>
+
+          </Dialog>
 
         </TabPanel>
 
