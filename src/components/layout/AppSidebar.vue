@@ -5,7 +5,12 @@ defineEmits<{ close: [] }>()
 import logoSgAgenda from '@/assets/sg-agenda-logo.svg'
 
 const items = [
+  { label: 'Dashboard', icon: 'pi pi-th-large', to: '/dashboard' },
+  { label: 'Agenda', icon: 'pi pi-calendar', to: '/agenda' },
+  { label: 'Clientes', icon: 'pi pi-users', to: '/clientes' },
+  { label: 'Atendentes', icon: 'pi pi-user-plus', to: '/atendentes' },
   { label: 'Catálogo', icon: 'pi pi-box', to: '/catalogo' },
+  { label: 'Comissões', icon: 'pi pi-dollar', to: '/comissoes' },
 ]
 </script>
 
